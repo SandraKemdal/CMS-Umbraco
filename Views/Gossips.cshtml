@@ -1,0 +1,42 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Gossips>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<div class="mt-2 mb-4">
+    <p class="fs-2 fw-bold text-center mb-5">Womin articles</p>
+    <small class="text-muted fw-bold">Home > Articles > Gosspis</small>
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("c7e1d3e2-59e6-4999-a603-238bd4c96dc2"))
+    .ChildrenOfType("article")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+
+	@foreach (var item in selection)
+	{
+	 <div class="mb-5 mt-3">
+	     <small class="text-muted mb-1">@item.Value("publishedDate")</small>
+            <div class="border-bottom ">
+                    <h3 class="mb-3">
+                         @item.Value("articleTitle")
+                    </h3>
+                    
+                    @{ 
+                            var image = item.Value<IPublishedContent>("topImage");
+                    }
+                        
+                    <div><img class="img-fluid" src="@image.Url()" /></div>
+                    <small class="text-muted"><strong>By: </strong> @item.Value("writtenBy")</small>
+                    
+                    <p class="">@item.Value("articleContent")</p>
+                  
+            </div>
+        </div>
+	}
+
+</div>

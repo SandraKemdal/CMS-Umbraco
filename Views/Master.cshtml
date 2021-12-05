@@ -1,0 +1,147 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+    <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+    <link href="~/css/styles.css" rel="stylesheet" />
+    
+    <title>Womin AB</title>
+       
+  </head>
+  
+  
+  <body>
+    
+  
+  
+    <div class="row ">
+        <div class="col">
+            <nav class="navbar navbar-light shadow-sm fixed-top">
+                <div class="container-fluid">
+                         <h1><a class="navbar-brand mx-2 fs-3 " href="/">Womin</a></h1> 
+                    <button class="navbar-toggler bg-burger text-white border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                         <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                    <div class="offcanvas offcanvas-end bg-sidebar " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                          <div class="offcanvas-header bg-sidebar text-dark">
+                                <h4 class="offcanvas-title " id="offcanvasNavbarLabel"><a class="text-dark" href="/" >Womin</a></h4>
+                                <button type="button" class="btn-close btn btn-outline-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                          </div>
+                        <div class="offcanvas-body bg-sidebar">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/contact-me">Contact me</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Articles</a>
+                                    <ul class="dropdown-menu " aria-labelledby="offcanvasNavbarDropdown">
+                                        
+                                        @{
+                                        	var selection = Umbraco.Content(Guid.Parse("5339306b-c4b4-4720-adea-1cfee7513ad7"))
+                                            .Children()
+                                            .Where(x => x.IsVisible())
+                                            .OrderBy(x => x.Name);
+                                        }
+                                        	@foreach (var category in selection)
+                                        	{
+                                                <li><a class="dropdown-item" href="@category.Url()">@category.Name()</a></li>
+                                        	}
+
+                                    </ul>
+                              </li>
+                            </ul>
+                           
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>    
+        <br/>
+        <br/>
+        
+        <div class="row mt-5">
+
+            <div class="col-7 ms-5">
+                <div class="container text-dark">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <div class="col-3 h-50 card lp-margin mt-4">
+                <div class="card-header rounded-top-3 bg-dark mb-4 mt-3 text-center text-white fs-5 fw-bold">Latest Post</div>
+
+                        @{
+                            var articles = Umbraco.Content(Guid.Parse("5339306b-c4b4-4720-adea-1cfee7513ad7"))
+                            .DescendantsOfType("article")
+                            .Where(x => x.IsVisible())
+                            .OrderBy(x => Guid.NewGuid())
+                            .Take(2);
+                        }
+
+                        @foreach (var item in articles)
+                        {
+                        
+                        <div class="mb-2 text-dark">
+                            <div class="">
+                        
+                                <a class="text-dark" href="@item.Url()">
+                                    <h6 class="mb-3">
+                                        @item.Value("articleTitle")
+        
+                                    </h6>
+        
+                                    @{
+                                        var image = item.Value<IPublishedContent>("topImage");
+                                    
+                                    }
+        
+        
+                                    <div class="d-flex justify-content-center "><img class="img-fluid mb-5" src="@image.Url()" /></div>
+                                </a>
+                                
+                            </div>
+                        </div>
+                        
+                        }
+
+            </div>
+        </div>
+        
+       
+        <div class="row">
+            <div class="col">
+                <footer class="footer-basic">
+                    <p class="text-center">Copyright &copy; Womin 2021</p>
+                </footer> 
+            </div>
+        </div>
+
+    
+    
+  
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html> 

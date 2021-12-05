@@ -1,0 +1,44 @@
+html{
+    overflow-x: hidden;
+}
+
+body, html, .offcanvas {
+    background-color: #fff;   
+}
+
+.lp-margin {
+    margin-left: 7rem;
+}
+
+nav, .bg-burger, .offcanvas {
+    background-color: #F2EBE2;
+}
+
+.bg-burger, .bg-sidebar {
+    background-color: #F2EBE2;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+.dropdown-item:active {
+     background-color: #dee2e6;
+     color: #000;
+ }
+
+.me {
+    border: #000 1px solid;
+    border-radius: 550% 550% 20%;
+    margin-left: 7%;
+    
+}
+
+.me-bg {
+    height: 10%;
+    border-radius: 550% 550% 20%;
+    background-color: #868686;
+}
+  
+ 
+

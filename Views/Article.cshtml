@@ -1,0 +1,26 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Article>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="mt-2 mb-4">
+    <p class="fs-2 fw-bold text-center mb-5">Womin articles</p>
+        
+        <div class="mb-5">
+        	<p class="text-muted">@Model.Value("publishedDate")</p>
+                
+                <div class="border-bottom ">
+                    <h3 class="mb-3">
+                     @Model.Value("articleTitle")
+                    </h3>
+               
+            
+                    <div><img class="img-fluid" src="@Model.TopImage.Url()" /></div>
+                     <small class="text-muted"><strong>By: </strong>@Model.Value("writtenBy")</small>
+                    <p class="fs-5 mb-4">@Model.Value("articleContent")</p>
+                </div>
+        </div>
+
+</div>
